@@ -130,7 +130,7 @@ eval "$(uvx --generate-shell-completion zsh)"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-export XDG_RUNTIME_DIR=/run/user/$(id -u)
+# export XDG_RUNTIME_DIR=/run/user/$(id -u)
 
 source <(fzf --zsh)
 eval "$(zoxide init --cmd cd zsh)"
