@@ -10,3 +10,9 @@ if [ ! -d "$HOME/.fzf" ]; then
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
     ~/.fzf/install --bin
 fi
+
+# install the latest zoxide if missing
+if ! command -v zoxide >/dev/null; then
+    echo "installing zoxide..."
+    curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+fi
