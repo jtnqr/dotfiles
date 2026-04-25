@@ -132,7 +132,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # export XDG_RUNTIME_DIR=/run/user/$(id -u)
 
-source <(fzf --zsh)
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 eval "$(zoxide init --cmd cd zsh)"
 
 #if [[ -z "$ZELLIJ" ]]; then
