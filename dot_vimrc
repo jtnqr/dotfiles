@@ -1,0 +1,50 @@
+call plug#begin('~/.vim/plugged')
+
+" List plugins here:
+Plug 'tpope/vim-commentary'         " Easy commenting (gcc)
+Plug 'tpope/vim-surround'           " Change surroundings (quotes, brackets)
+
+call plug#end()
+
+" --- General Settings ---
+set nocompatible            " Disable compatibility with old vi
+set number                  " Show line numbers
+set relativenumber          " Show relative line numbers for easier jumping
+set mouse=a                 " Enable mouse support
+set clipboard=unnamedplus   " Use system clipboard
+set showmatch               " Highlight matching brackets
+set ignorecase              " Ignore case when searching
+set smartcase               " Override ignorecase if search contains capitals
+set hlsearch                " Highlight all search results
+set incsearch               " Incremental search
+set cursorline              " Highlight the current line
+set termguicolors           " Enable 24-bit RGB colors
+
+" --- Indentation ---
+set expandtab               " Convert tabs to spaces
+set shiftwidth=4            " Number of spaces for auto-indent
+set tabstop=4               " Number of spaces per tab
+set smartindent             " Insert indents automatically
+
+" --- Performance & Undo ---
+set hidden                  " Hide buffers instead of closing them
+set nobackup                " Recommended by many plugins
+set nowritebackup
+set updatetime=300          " Faster diagnostic messages
+set undofile                " Maintain undo history between sessions
+
+" --- Key Mappings ---
+let mapleader = " "         " Set spacebar as leader key
+
+" Clear search highlights
+nnoremap <leader>h :nohlsearch<CR>
+
+" Faster split navigation
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" --- File Type Specifics ---
+filetype plugin indent on   " Enable filetype detection
+syntax on                   " Enable syntax highlighting
