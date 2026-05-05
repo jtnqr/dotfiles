@@ -115,7 +115,6 @@ if (-not $env:SSH_CONNECTION) {
     function choco { gsudo choco $args }
 }
 
-Set-Alias -Name rg -Value ripgrep
 Set-Alias -Name f -Value fd
 
 function which { (Get-Command $args[0] -ErrorAction 0).Source }
@@ -123,3 +122,4 @@ function npp   { & "C:\Program Files\Notepad++\notepad++.exe" $args }
 function subl  { & "C:\Program Files\Sublime Text\subl.exe" $args }
 function edit-profile { chezmoi edit "$env:USERPROFILE\.pwsh_profile.ps1" }
 function reload-profile { chezmoi apply; . $PROFILE }
+function pip { uv pip $args }
