@@ -1,6 +1,6 @@
 # --- 1. PRE-RESOLVED PATHS ---
 if ($env:SSH_CONNECTION) {
-    $EZA_BIN = (Get-ChildItem "$env:LOCALAPPDATA\Microsoft\WinGet\Packages\*eza*\eza.exe" -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1).FullName
+    $EZA_BIN = (Get-ChildItem "$env:USERPROFILE\scoop\apps\eza\*\eza.exe" -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1).FullName
     $FNM_BIN = (Get-ChildItem "$env:USERPROFILE\scoop\apps\fnm\*\fnm.exe" -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1).FullName
     $ZOXIDE_BIN = $null
 } else {
