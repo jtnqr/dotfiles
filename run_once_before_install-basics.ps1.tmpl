@@ -1,33 +1,40 @@
 {{ if eq .chezmoi.os "linux" -}}
 #!/bin/bash
 # --- Linux specific ---
-# install vim-plug if missing
+echo "==> Running Linux/WSL basic tools installation..."
+
 if [ ! -f "$HOME/.vim/autoload/plug.vim" ]; then
+    echo "    Installing vim-plug..."
     curl -fLo "$HOME/.vim/autoload/plug.vim" --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 
-# install fzf if missing (the version that supports --zsh)
 if [ ! -d "$HOME/.fzf" ]; then
+    echo "    Installing fzf..."
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
     ~/.fzf/install --bin
 fi
 
-# install the latest zoxide if missing
 if ! command -v zoxide >/dev/null; then
-    echo "installing zoxide..."
+    echo "    Installing zoxide..."
     curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
 fi
 
+echo "==> Linux initialization complete."
+
 {{ else if eq .chezmoi.os "windows" -}}
-#!/usr/bin/env powershell
 # --- Windows Specific ---
-# Verify required infrastructure binaries exist on Windows via scoop
+Write-Host "==> Verifying Windows infrastructure applications via scoop..." -ForegroundColor Cyan
+
 $requiredApps = @("zoxide", "fzf", "fd", "uv", "fnm")
 foreach ($app in $requiredApps) {
     if (-not (Get-Command $app -ErrorAction SilentlyContinue)) {
-        Write-Host "Missing $app. Installing via scoop..." -ForegroundColor Yellow
+        Write-Host "    [!] Missing $app. Installing via scoop..." -ForegroundColor Yellow
         scoop install $app
+    } else {
+        Write-Host "    [✓] $app is already installed." -ForegroundColor Green
     }
 }
+
+Write-Host "==> Windows verification complete." -ForegroundColor Cyan
 {{ end -}}
