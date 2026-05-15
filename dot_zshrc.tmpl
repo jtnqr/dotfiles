@@ -146,3 +146,10 @@ eval "$(zoxide init --cmd cd zsh)"
 #        exit
 #    fi
 #fi
+
+{{- if (and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft")) }}
+# WSL-specific: redirect to ~ only if starting in Windows C: User directory
+if [[ "$PWD" =~ ^/mnt/c/Users/[^/]+$ ]] || [ "$PWD" = "/mnt/c/Users" ]; then
+    cd ~
+fi
+{{- end }}
