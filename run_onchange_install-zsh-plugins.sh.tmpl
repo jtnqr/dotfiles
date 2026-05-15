@@ -1,3 +1,4 @@
+{{ if eq .chezmoi.os "linux" -}}
 #!/bin/bash
 # --- Linux Zsh Plugins Installation ---
 echo "==> Verifying Zsh plugins via Oh My Zsh..."
@@ -19,3 +20,4 @@ install_plugin "you-should-use" "MichaelAquilina/zsh-you-should-use.git"
 install_plugin "evalcache" "mroth/evalcache.git"
 
 echo "==> Zsh plugins verification complete."
+{{ end -}}
