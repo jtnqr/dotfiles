@@ -1,6 +1,6 @@
-# --- Linux specific ---
 {{ if eq .chezmoi.os "linux" -}}
 #!/bin/bash
+# --- Linux specific ---
 # install vim-plug if missing
 if [ ! -f "$HOME/.vim/autoload/plug.vim" ]; then
     curl -fLo "$HOME/.vim/autoload/plug.vim" --create-dirs \
@@ -19,9 +19,9 @@ if ! command -v zoxide >/dev/null; then
     curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
 fi
 
-# --- Windows Specific ---
 {{ else if eq .chezmoi.os "windows" -}}
 #!/usr/bin/env powershell
+# --- Windows Specific ---
 # Verify required infrastructure binaries exist on Windows via scoop
 $requiredApps = @("zoxide", "fzf", "fd", "uv", "fnm")
 foreach ($app in $requiredApps) {
@@ -30,5 +30,4 @@ foreach ($app in $requiredApps) {
         scoop install $app
     }
 }
-
 {{ end -}}
