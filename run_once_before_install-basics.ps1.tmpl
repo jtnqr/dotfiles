@@ -3,6 +3,16 @@
 # --- Linux specific ---
 echo "==> Running Linux/WSL basic tools installation..."
 
+# Install ccache if missing based on package manager
+if ! command -v ccache >/dev/null; then
+    echo "    Installing ccache..."
+    if command -v dnf >/dev/null; then
+        sudo dnf install -y ccache
+    elif command -v apt-get >/dev/null; then
+        sudo apt-get update && sudo apt-get install -y ccache
+    fi
+fi
+
 if [ ! -f "$HOME/.vim/autoload/plug.vim" ]; then
     echo "    Installing vim-plug..."
     curl -fLo "$HOME/.vim/autoload/plug.vim" --create-dirs \

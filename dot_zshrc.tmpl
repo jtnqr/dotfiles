@@ -1,5 +1,14 @@
 typeset -U path PATH
 
+{{ if eq .chezmoi.os "linux" -}}
+# Prepend ccache symlinks natively based on compiler path location
+{{ if stat "/usr/lib64/ccache" -}}
+path=(/usr/lib64/ccache $path)
+{{ else if stat "/usr/lib/ccache" -}}
+path=(/usr/lib/ccache $path)
+{{ end -}}
+{{ end -}}
+
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
