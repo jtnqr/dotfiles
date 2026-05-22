@@ -30,6 +30,16 @@ if ! command -v zoxide >/dev/null; then
     curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
 fi
 
+if ! command -v mise >/dev/null; then
+    echo "    Installing mise..."
+    curl https://mise.run | sh
+fi
+
+if ! command -v fnm >/dev/null; then
+    echo "    Installing fnm..."
+    curl -fsSL https://fnm.vercel.app/install | bash
+fi
+
 echo "==> Linux initialization complete."
 
 {{ else if eq .chezmoi.os "windows" -}}

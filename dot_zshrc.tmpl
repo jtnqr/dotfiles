@@ -124,13 +124,8 @@ export ARCHFLAGS="-arch $(uname -m)"
 
 source /etc/zsh_command_not_found
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 eval "$(uv generate-shell-completion zsh)"
 eval "$(uvx --generate-shell-completion zsh)"
-
 
 # bun completions
 [ -s "/home/jtnqr/.bun/_bun" ] && source "/home/jtnqr/.bun/_bun"
@@ -142,7 +137,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # export XDG_RUNTIME_DIR=/run/user/$(id -u)
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-eval "$(zoxide init --cmd cd zsh)"
+_evalcache zoxide init --cmd cd zsh
 
 #if [[ -z "$ZELLIJ" ]]; then
 #    # Check if we are in an interactive shell (prevents breaking scp/sftp)
@@ -162,3 +157,13 @@ if [[ "$PWD" =~ ^/mnt/c/Users/[^/]+$ ]] || [ "$PWD" = "/mnt/c/Users" ]; then
     cd ~
 fi
 {{- end }}
+
+# mise
+_evalcache /home/jtnqr/.local/bin/mise activate zsh
+
+# fnm
+FNM_PATH="/home/jtnqr/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  _evalcache fnm env --use-on-cd --shell zsh
+fi
