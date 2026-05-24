@@ -137,16 +137,11 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # export XDG_RUNTIME_DIR=/run/user/$(id -u)
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-_evalcache zoxide init --cmd cd zsh
+eval "$(zoxide init --cmd cd zsh)"
 
 #if [[ -z "$ZELLIJ" ]]; then
-#    # Check if we are in an interactive shell (prevents breaking scp/sftp)
 #    if [[ -t 1 ]]; then
-#        # Attach to 'default' or create it.
-#        # The 'options' flag ensures it doesn't loop if Zellij fails to load.
 #        zellij attach -c default || zellij -s default
-#
-#        # Kill the shell after Zellij exits so the SSH window closes
 #        exit
 #    fi
 #fi
@@ -159,11 +154,11 @@ fi
 {{- end }}
 
 # mise
-_evalcache /home/jtnqr/.local/bin/mise activate zsh
+eval "$(/home/jtnqr/.local/bin/mise activate zsh)"
 
 # fnm
 FNM_PATH="/home/jtnqr/.local/share/fnm"
 if [ -d "$FNM_PATH" ]; then
   export PATH="$FNM_PATH:$PATH"
-  _evalcache fnm env --use-on-cd --shell zsh
+  eval "$(fnm env --use-on-cd --shell zsh)"
 fi
