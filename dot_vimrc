@@ -48,3 +48,71 @@ nnoremap <C-l> <C-w>l
 " --- File Type Specifics ---
 filetype plugin indent on   " Enable filetype detection
 syntax on                   " Enable syntax highlighting
+
+" --- VS Code-like Shortcuts for Vim ---
+
+" Save File (Ctrl + S)
+nnoremap <C-s> :w<CR>
+inoremap <C-s> <Esc>:w<CR>a
+
+" Quit Vim (Ctrl + Q)
+nnoremap <C-q> :q<CR>
+
+" Undo (Ctrl + Z)
+nnoremap <C-z> u
+inoremap <C-z> <Esc>ua
+
+" Redo (Ctrl + Y)
+nnoremap <C-y> <C-r>
+inoremap <C-y> <Esc><C-r>a
+
+" Find Text (Ctrl + F)
+nnoremap <C-f> /
+
+" Select All (Ctrl + A)
+nnoremap <C-a> ggVG
+
+" Copy / Clipboard Integration (Ctrl + C in Visual Mode)
+" Requires Vim compiled with +clipboard
+vnoremap <C-c> "+y
+
+" Paste from Clipboard (Ctrl + V in Normal/Insert Mode)
+nnoremap <C-v> "+p
+inoremap <C-v> <C-r>+
+
+" Cut Text (Ctrl + X in Visual Mode)
+vnoremap <C-x> "+x
+
+" Toggle Line Comment (Ctrl + /)
+" Note: Terminal Vim often reads Ctrl+/ as Ctrl+_ or Backspace. 
+" If Ctrl+/ fails, use Ctrl+_ instead.
+nnoremap <C-_> :execute "normal! I// \<Esc>"<CR>
+vnoremap <C-_> :s/^/\/\/ /<CR>:noh<CR>
+
+" Move current line down (Alt + Down)
+nnoremap <A-Down> :m .+1<CR>==
+inoremap <A-Down> <Esc>:m .+1<CR>==gi
+
+" Move current line up (Alt + Up)
+nnoremap <A-Up> :m .-2<CR>==
+inoremap <A-Up> <Esc>:m .-2<CR>==gi
+
+" Move selected block down in Visual mode (Alt + Down)
+vnoremap <A-Down> :m '>+1<CR>gv=gv
+
+" Move selected block up in Visual mode (Alt + Up)
+vnoremap <A-Up> :m '<-2<CR>gv=gv
+
+" Duplicate line down (Shift + Alt + Down)
+nnoremap <S-A-Down> :t .<CR>
+inoremap <S-A-Down> <Esc>:t .<CR>gi
+
+" Duplicate line up (Shift + Alt + Up)
+nnoremap <S-A-Up> :t .-1<CR>
+inoremap <S-A-Up> <Esc>:t .-1<CR>gi
+
+" Duplicate selected block down in Visual mode (Shift + Alt + Down)
+vnoremap <S-A-Down> :t '><CR>gv
+
+" Duplicate selected block up in Visual mode (Shift + Alt + Up)
+vnoremap <S-A-Up> :t '<-1<CR>gv
