@@ -1,10 +1,16 @@
+set shell=zsh
+
 call plug#begin('~/.vim/plugged')
 
 " List plugins here:
 Plug 'tpope/vim-commentary'         " Easy commenting (gcc)
 Plug 'tpope/vim-surround'           " Change surroundings (quotes, brackets)
+" Plug 'junegunn/fzf'                 " fzf plugin
+Plug '~/.fzf'
+Plug 'junegunn/fzf.vim'             " -- for vim (fzf)
 
 call plug#end()
+
 
 " --- General Settings ---
 set nocompatible            " Disable compatibility with old vi
@@ -44,6 +50,15 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
+" --- FZF Configuration ---
+" Bind Ctrl+P to open the file finder with a right-side preview layout
+nnoremap <C-p> :Files<CR>
+
+" Configure fzf preview options (Uses default layout if popups aren't supported)
+let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.95 } }
+let g:fzf_vim = {}
+let g:fzf_vim.preview_window = ['right,50%', 'ctrl-/']
 
 " --- File Type Specifics ---
 filetype plugin indent on   " Enable filetype detection
@@ -116,3 +131,5 @@ vnoremap <S-A-Down> :t '><CR>gv
 
 " Duplicate selected block up in Visual mode (Shift + Alt + Up)
 vnoremap <S-A-Up> :t '<-1<CR>gv
+
+
