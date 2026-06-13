@@ -164,7 +164,7 @@ if [ -d "$FNM_PATH" ]; then
 fi
 
 # --- Ubuntu Major Release Notifications Only ---
-{{ if eq .chezmoi.osRelease.id "ubuntu" -}}
+{{ if and (eq .chezmoi.os "linux") (hasKey .chezmoi.osRelease "id") (eq .chezmoi.osRelease.id "ubuntu") -}}
 # Check if the official release upgrader tool has cached a new distribution release
 if [ -f /var/lib/ubuntu-release-upgrader/release-upgrade-available ]; then
     echo ""
