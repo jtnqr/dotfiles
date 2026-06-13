@@ -162,3 +162,13 @@ if [ -d "$FNM_PATH" ]; then
   export PATH="$FNM_PATH:$PATH"
   eval "$(fnm env --use-on-cd --shell zsh)"
 fi
+
+# --- Ubuntu Major Release Notifications Only ---
+{{ if eq .chezmoi.osRelease.id "ubuntu" -}}
+# Check if the official release upgrader tool has cached a new distribution release
+if [ -f /var/lib/ubuntu-release-upgrader/release-upgrade-available ]; then
+    echo ""
+    cat /var/lib/ubuntu-release-upgrader/release-upgrade-available
+    echo ""
+fi
+{{ end -}}
