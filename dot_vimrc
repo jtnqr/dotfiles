@@ -1,13 +1,36 @@
-set shell=zsh
+" --- Cross-Platform Shell Configuration ---
+if has('win32') || has('win64')
+    " On Windows, use PowerShell or standard cmd (Vim handles this automatically by default)
+    " We explicitly avoid setting shell=zsh here.
+else
+    " Only use zsh on Linux / macOS
+    set shell=zsh
+endif
 
-call plug#begin('~/.vim/plugged')
+" --- Cross-Platform vim-plug Setup ---
+if has('win32') || has('win64')
+    " Windows paths
+    call plug#begin('~/vimfiles/plugged')
+else
+    " Linux/macOS paths
+    call plug#begin('~/.vim/plugged')
+endif
 
-" List plugins here:
+" --- Plugins ---
 Plug 'tpope/vim-commentary'         " Easy commenting (gcc)
 Plug 'tpope/vim-surround'           " Change surroundings (quotes, brackets)
-" Plug 'junegunn/fzf'                 " fzf plugin
-Plug '~/.fzf'
-Plug 'junegunn/fzf.vim'             " -- for vim (fzf)
+
+" --- Cross-Platform FZF Integration ---
+if has('win32') || has('win64')
+	" On Windows, tell vim-plug to fetch the main fzf repo 
+    " so Vim gets the missing fzf#run function.
+    Plug 'junegunn/fzf'
+    Plug 'junegunn/fzf.vim'
+else
+    " On Linux, you are installing FZF via Git inside your home directory.
+    Plug '~/.fzf'
+    Plug 'junegunn/fzf.vim'
+endif
 
 call plug#end()
 

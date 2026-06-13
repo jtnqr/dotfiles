@@ -56,5 +56,19 @@ foreach ($app in $requiredApps) {
     }
 }
 
+# --- Install vim-plug for Windows ---
+$VimPlugPath = "$HOME\vimfiles\autoload\plug.vim"
+if (-not (Test-Path $VimPlugPath)) {
+    Write-Host "    [!] vim-plug is missing. Installing for Vim..." -ForegroundColor Yellow
+    # Ensure the directory exists before downloading
+    New-Item -ItemType Directory -Force -Path (Split-Path $VimPlugPath) | Out-Null
+    
+    # Download vim-plug
+    Invoke-WebRequest -UseBasicParsing -Uri "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim" -OutFile $VimPlugPath
+    Write-Host "    [✓] vim-plug successfully installed." -ForegroundColor Green
+} else {
+    Write-Host "    [✓] vim-plug is already installed." -ForegroundColor Green
+}
+
 Write-Host "==> Windows verification complete." -ForegroundColor Cyan
 {{ end -}}
