@@ -60,6 +60,19 @@ set hidden                  " Hide buffers instead of closing them
 set nobackup                " Recommended by many plugins
 set nowritebackup
 set updatetime=300          " Faster diagnostic messages
+
+" --- Chezmoi Template Config for Undodir ---
+{{- if eq .chezmoi.os "windows" }}
+set undodir=$USERPROFILE/.vim/undo//
+{{- else }}
+set undodir=~/.vim/undo//
+{{- end }}
+
+" Create the directory automatically if it does not exist
+if !isdirectory(&undodir)
+    call mkdir(&undodir, "p")
+endif
+
 set undofile                " Maintain undo history between sessions
 
 " --- Key Mappings ---
