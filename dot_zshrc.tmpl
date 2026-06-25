@@ -122,13 +122,24 @@ export ARCHFLAGS="-arch $(uname -m)"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-source /etc/zsh_command_not_found
+# Enable command-not-found integration (Debian/Ubuntu/Fedora)
+if [ -f /etc/zsh_command_not_found ]; then
+    source /etc/zsh_command_not_found
+elif [ -x /usr/libexec/pk-command-not-found ]; then
+    command_not_found_handler() {
+        /usr/libexec/pk-command-not-found "$@"
+    }
+fi
 
-eval "$(uv generate-shell-completion zsh)"
-eval "$(uvx --generate-shell-completion zsh)"
+if command -v uv >/dev/null; then
+    eval "$(uv generate-shell-completion zsh)"
+fi
+if command -v uvx >/dev/null; then
+    eval "$(uvx --generate-shell-completion zsh)"
+fi
 
 # bun completions
-[ -s "/home/jtnqr/.bun/_bun" ] && source "/home/jtnqr/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
@@ -137,7 +148,9 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # export XDG_RUNTIME_DIR=/run/user/$(id -u)
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-eval "$(zoxide init --cmd cd zsh)"
+if command -v zoxide >/dev/null; then
+    eval "$(zoxide init --cmd cd zsh)"
+fi
 
 #if [[ -z "$ZELLIJ" ]]; then
 #    if [[ -t 1 ]]; then
@@ -154,12 +167,18 @@ fi
 {{- end }}
 
 # mise
-eval "$(/home/jtnqr/.local/bin/mise activate zsh)"
+if [ -x "$HOME/.local/bin/mise" ]; then
+    eval "$("$HOME/.local/bin/mise" activate zsh)"
+elif command -v mise >/dev/null; then
+    eval "$(mise activate zsh)"
+fi
 
 # fnm
-FNM_PATH="/home/jtnqr/.local/share/fnm"
+FNM_PATH="$HOME/.local/share/fnm"
 if [ -d "$FNM_PATH" ]; then
   export PATH="$FNM_PATH:$PATH"
+  eval "$(fnm env --use-on-cd --shell zsh)"
+elif command -v fnm >/dev/null; then
   eval "$(fnm env --use-on-cd --shell zsh)"
 fi
 
